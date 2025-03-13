@@ -3,8 +3,6 @@ AI Flash Card App 🧠💡
 The AI Flash Card App is an intelligent learning tool that helps users memorize concepts efficiently using AI-driven flashcards. Built using **Python, Flask, Postman, and JavaScript**, this application enables users to create, store, and review flashcards dynamically.
 
 ## Features 🚀  
-✅ **AI-Powered Suggestions** – Generates hints and explanations based on input.  
-✅ **Create & Manage Flashcards** – Add, edit, and delete flashcards seamlessly.  
 ✅ **Interactive Learning** – Users can test their knowledge with an intuitive interface.  
 ✅ **REST API Integration** – Built with Flask, making it easy to interact with other platforms.  
 ✅ **User-Friendly UI** – Smooth and responsive front-end using JavaScript.  
