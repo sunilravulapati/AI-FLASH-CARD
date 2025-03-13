@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Flashcard Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #flashcard {
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f0f0f0;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Flashcard Generator</h1>
+    
+    <input type="text" id="topic" placeholder="Enter a topic (e.g., Python, Java, C++)">
+    <button id="generate">Generate</button>
+
+    <div id="flashcard"></div>
+
+    <script>
+        document.getElementById("generate").addEventListener("click", function() {
+            let topic = document.getElementById("topic").value;
+
+            // Check if the topic input is not empty
+            if (!topic) {
+                document.getElementById("flashcard").innerHTML = `<p style="color:red;">Error: Please enter a topic.</p>`;
+                return;
+            }
+
+            fetch("http://127.0.0.1:5000/generate_flashcard", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ topic: topic })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.flashcards) {
+                    let flashcardHTML = '<p><strong>Flashcards:</strong></p><ul>';
+                    data.flashcards.forEach(flashcard => {
+                        flashcardHTML += `<li>${flashcard}</li>`;
+                    });
+                    flashcardHTML += '</ul>';
+                    document.getElementById("flashcard").innerHTML = flashcardHTML;
+                } else {
+                    document.getElementById("flashcard").innerHTML = `<p style="color:red;">Error: ${data.error}</p>`;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("flashcard").inner
+                HTML = `<p style="color:red;">Error: ${error.message}</p>`;
+            });
+        });
+    </script>
+</body>
+</html>
